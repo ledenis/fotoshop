@@ -1,0 +1,10 @@
+undo
+get a
+put a
+open input.jpg
+look
+rot90
+mono
+put abc
+rot90
+save output.jpg
