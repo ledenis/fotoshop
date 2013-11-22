@@ -9,9 +9,9 @@ import javax.imageio.ImageIO;
 
 import ui.UserInterface;
 import ui.commandline.Command;
-import ui.commandline.CommandLineInterface;
 import ui.commandline.CommandProcessor;
 import ui.commandline.Parser;
+import ui.gui.GUI;
 import filter.Filter;
 import filter.MonoFilter;
 import filter.RotFilter;
@@ -40,10 +40,11 @@ public class Editor {
 	 * Create the editor and initialise its UI.
 	 */
 	public Editor() {
-		ui = new CommandLineInterface(this);
+//		ui = new CommandLineInterface(this);
+		ui = new GUI(this);
 		cache = new Cache();
 
-//		runScript("script.txt");
+		// runScript("script.txt");
 	}
 
 	/**
@@ -125,6 +126,30 @@ public class Editor {
 	}
 
 	/**
+	 * Load an image from a file and handle a possible error.
+	 * 
+	 * @param imageFile
+	 *            The image File
+	 */
+	public void loadImage(File imageFile) {
+		ColorImage img = null;
+		try {
+			img = new ColorImage(ImageIO.read(imageFile));
+		} catch (IOException e) {
+			ui.printNotFound(imageFile.getAbsolutePath(),
+					System.getProperty("user.dir"));
+		}
+
+//		if (img == null) {
+//			ui.printHelp();
+//		} else {
+			currentImage = new ProcessedImage(img, imageFile.getName());
+			ui.printLoaded(currentImage.getName());
+			ui.updateImage(currentImage);
+//		}
+	}
+
+	/**
 	 * Save an image to a file and handle a possible error
 	 * 
 	 * @param outputName
@@ -148,6 +173,7 @@ public class Editor {
 
 	/**
 	 * Convert the current image to monochrome.
+	 * 
 	 * @return false if no current image
 	 */
 	public boolean mono() {

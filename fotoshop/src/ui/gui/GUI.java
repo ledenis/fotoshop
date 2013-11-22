@@ -2,13 +2,18 @@ package ui.gui;
 
 import filter.Filter;
 import fotoshop.Editor;
+import fotoshop.ProcessedImage;
 import ui.UserInterface;
 
-/** Not yet implemented */
+/** It is the Swing graphical user interface */
 public class GUI extends UserInterface {
-
+	MainWindow window;
+	
 	public GUI(Editor editor) {
 		super(editor);
+		
+		window = new MainWindow(editor);
+		window.setVisible(true);
 	}
 
 	@Override
@@ -90,6 +95,11 @@ public class GUI extends UserInterface {
 
 	@Override
 	public void printDontKnow() {
+	}
+
+	@Override
+	public void updateImage(ProcessedImage currentImage) {
+		window.updateImage(currentImage);
 	}
 
 }

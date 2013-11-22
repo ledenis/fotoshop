@@ -1,6 +1,5 @@
 package fotoshop;
 
-import ui.gui.MainWindow;
 
 /**
  * This is the main class for the Fotoshop application
@@ -11,6 +10,6 @@ import ui.gui.MainWindow;
 public class Main {
 	public static void main(String[] args) {
 //		new Editor().edit();
-		new MainWindow();
+		new Editor();
 	}
 }

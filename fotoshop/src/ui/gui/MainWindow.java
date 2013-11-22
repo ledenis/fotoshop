@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -21,19 +22,32 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.UIManager;
 
+import ui.gui.action.LoadAction;
+
 import filter.Filter;
 import filter.Sequence;
+import fotoshop.Editor;
+import fotoshop.ProcessedImage;
 
 /** Main window of the Fotoshop application
  */
 public class MainWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
+	
+	private Editor editor;
+	
+	private JPanel mainPanel;
+	
+	private JLabel nameLabel;
+
 
 	private static final String TITLE = "Fotoshop";
 	private static final int PREF_WIDTH = 800;
 	private static final int PREF_HEIGHT = 600;
 
-	public MainWindow() {
+	public MainWindow(Editor editor) {
+		this.editor = editor;
+		
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
@@ -47,13 +61,12 @@ public class MainWindow extends JFrame {
 
 		JPanel topPanel = new JPanel();
 		JPanel sidePanel = new JPanel();
-		JPanel mainPanel = new JPanel();
+		mainPanel = new JPanel();
 
 		initContainers(topPanel, sidePanel, mainPanel);
 		initComponents(topPanel, sidePanel, mainPanel);
 
 		pack();
-		setVisible(true);
 	}
 
 	private void initMenuBar() {
@@ -107,8 +120,9 @@ public class MainWindow extends JFrame {
 			JPanel mainPanel) {
 		// Top container
 		JButton loadButton = new JButton("Load");
+		loadButton.addActionListener(new LoadAction(this, editor));
 		JButton saveButton = new JButton("Save");
-		JLabel nameLabel = new JLabel("placeholder.jpg");
+		nameLabel = new JLabel("<No image>");
 		Font font = nameLabel.getFont();
 		font = font.deriveFont(Font.BOLD);
 		nameLabel.setFont(font);
@@ -180,6 +194,17 @@ public class MainWindow extends JFrame {
 				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER)); // with scrolling
 		sidePanel.add(sequencesPanel);
+	}
+
+	public void updateImage(ProcessedImage currentImage) {
+		JLabel picLabel = new JLabel(new ImageIcon(currentImage.getInternal()));
+		mainPanel.removeAll();
+		mainPanel.add(picLabel);
+		mainPanel.validate();
+		mainPanel.repaint();
+		
+		// name
+		nameLabel.setText(currentImage.getName());
 	}
 
 }
