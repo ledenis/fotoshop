@@ -18,7 +18,6 @@ public class LoadAction extends GUIAction {
 
 	@Override
 	public void actionPerformed(ActionEvent ev) {
-		System.out.println("debug load editor");
 		JFileChooser fileChooser = new JFileChooser();
 
 		int result = fileChooser.showOpenDialog(parent);
