@@ -29,17 +29,17 @@ import filter.Sequence;
 import fotoshop.Editor;
 import fotoshop.ProcessedImage;
 
-/** Main window of the Fotoshop application
+/**
+ * Main window of the Fotoshop application
  */
 public class MainWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
-	
-	private Editor editor;
-	
-	private JPanel mainPanel;
-	
-	private JLabel nameLabel;
 
+	private Editor editor;
+
+	private JPanel mainPanel;
+
+	private JLabel nameLabel;
 
 	private static final String TITLE = "Fotoshop";
 	private static final int PREF_WIDTH = 800;
@@ -47,7 +47,7 @@ public class MainWindow extends JFrame {
 
 	public MainWindow(Editor editor) {
 		this.editor = editor;
-		
+
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
@@ -145,7 +145,7 @@ public class MainWindow extends JFrame {
 		initSideComponents(sidePanel);
 
 		// Main container
-		mainPanel.add(new JButton("teeeeest"));
+		// mainPanel.add(new JButton("teeeeest"));
 
 	}
 
@@ -202,7 +202,7 @@ public class MainWindow extends JFrame {
 		mainPanel.add(picLabel);
 		mainPanel.validate();
 		mainPanel.repaint();
-		
+
 		// name
 		nameLabel.setText(currentImage.getName());
 	}
