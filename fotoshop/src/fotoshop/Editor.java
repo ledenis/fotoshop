@@ -140,6 +140,7 @@ public class Editor {
 					System.getProperty("user.dir"));
 		}
 
+		//TODO handle errors in loadImage
 //		if (img == null) {
 //			ui.printHelp();
 //		} else {
@@ -168,6 +169,29 @@ public class Editor {
 		} catch (IOException e) {
 			ui.printExceptionMsg(e);
 			ui.printHelp();
+		}
+	}
+	
+	/**
+	 * Save an image to a file and handle a possible error
+	 * 
+	 * @param outputFile
+	 *            The new image file
+	 */
+	public void saveImage(File outputFile) {
+		//TODO: handle errors in saveImage
+		if (currentImage == null) {
+			ui.printNoImage();
+			return;
+		}
+
+		try {
+			ImageIO.write(currentImage.getInternal(), "jpg", outputFile);
+//			ui.printSaved(output);
+		} catch (IOException e) {
+			e.printStackTrace();
+//			ui.printExceptionMsg(e);
+//			ui.printHelp();
 		}
 	}
 
