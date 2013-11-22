@@ -23,7 +23,7 @@ import javax.swing.JSplitPane;
 import javax.swing.UIManager;
 
 import ui.gui.action.LoadAction;
-
+import ui.gui.action.SaveAction;
 import filter.Filter;
 import filter.Sequence;
 import fotoshop.Editor;
@@ -122,6 +122,7 @@ public class MainWindow extends JFrame {
 		JButton loadButton = new JButton("Load");
 		loadButton.addActionListener(new LoadAction(this, editor));
 		JButton saveButton = new JButton("Save");
+		saveButton.addActionListener(new SaveAction(this, editor));
 		nameLabel = new JLabel("<No image>");
 		Font font = nameLabel.getFont();
 		font = font.deriveFont(Font.BOLD);
