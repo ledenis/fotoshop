@@ -8,6 +8,7 @@ import javax.swing.JFileChooser;
 
 import fotoshop.Editor;
 
+/** Save an image to a file using a save file dialog */
 public class SaveAction extends GUIAction {
 	private static final long serialVersionUID = 1L;
 	
