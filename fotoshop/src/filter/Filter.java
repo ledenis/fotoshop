@@ -6,6 +6,8 @@ import fotoshop.ProcessedImage;
 public abstract class Filter {
 	private String name;
 
+	private final static String[] FILTER_NAMES = { "mono", "rot90" };
+
 	public Filter(String name) {
 		this.name = name;
 	}
@@ -30,6 +32,13 @@ public abstract class Filter {
 	 * @return true if the filter can be undone
 	 */
 	public abstract boolean canBeUndone();
+
+	/**
+	 * @return an array containing the name of each filter available
+	 */
+	public static final String[] getFiltersNames() {
+		return FILTER_NAMES;
+	}
 
 	@Override
 	public String toString() {
