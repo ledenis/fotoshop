@@ -27,6 +27,7 @@ import ui.gui.action.LoadAction;
 import ui.gui.action.MonoAction;
 import ui.gui.action.RotAction;
 import ui.gui.action.SaveAction;
+import ui.gui.action.ShowBrightAction;
 import filter.Filter;
 import filter.Sequence;
 import fotoshop.Editor;

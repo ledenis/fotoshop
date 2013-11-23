@@ -1,6 +1,7 @@
 package ui.gui;
 
 import java.awt.Container;
+import java.awt.Frame;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -22,7 +23,8 @@ public class BrightnessWindow extends JDialog {
 	private JLabel label;
 	private JSlider slider;
 
-	public BrightnessWindow() {
+	public BrightnessWindow(Frame parent) {
+		super(parent, true);
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 
@@ -33,12 +35,14 @@ public class BrightnessWindow extends JDialog {
 		slider.setPaintTicks(true);
 		updateText();
 		JButton okButton = new JButton("Ok");
+		// TODO: actionlistener
+		// okButton.addActionListener(new BrightAction())
 		okButton.setAlignmentX(CENTER_ALIGNMENT);
 
 		contentPane.add(label);
 		contentPane.add(slider);
 		contentPane.add(okButton);
-		
+
 		// action listener
 		slider.addChangeListener(new ChangeListener() {
 			@Override
@@ -49,7 +53,7 @@ public class BrightnessWindow extends JDialog {
 
 		pack();
 	}
-	
+
 	private void updateText() {
 		label.setText(TEXT + slider.getValue() + "%");
 	}
