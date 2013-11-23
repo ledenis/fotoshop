@@ -127,9 +127,7 @@ public class CommandProcessor {
 	 *            the command given.
 	 */
 	private void mono(Command command) {
-		if (!editor.mono()) {
-			ui.printNoImage();
-		}
+		editor.mono();
 	}
 
 	/**
@@ -139,9 +137,7 @@ public class CommandProcessor {
 	 *            the command given.
 	 */
 	private void rot90(Command command) {
-		if (!editor.rot90()) {
-			ui.printNoImage();
-		}
+		editor.rot90();
 	}
 
 	/**

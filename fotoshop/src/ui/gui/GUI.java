@@ -1,5 +1,7 @@
 package ui.gui;
 
+import javax.swing.JOptionPane;
+
 import filter.Filter;
 import fotoshop.Editor;
 import fotoshop.ProcessedImage;
@@ -8,10 +10,10 @@ import ui.UserInterface;
 /** It is the Swing graphical user interface */
 public class GUI extends UserInterface {
 	MainWindow window;
-	
+
 	public GUI(Editor editor) {
 		super(editor);
-		
+
 		window = new MainWindow(editor);
 		window.setVisible(true);
 	}
@@ -50,7 +52,8 @@ public class GUI extends UserInterface {
 	}
 
 	@Override
-	public void printLook(String imageName, Filter[] filters, String[] cacheNames) {
+	public void printLook(String imageName, Filter[] filters,
+			String[] cacheNames) {
 	}
 
 	@Override
@@ -79,6 +82,8 @@ public class GUI extends UserInterface {
 
 	@Override
 	public void printNoImage() {
+		JOptionPane.showMessageDialog(window, msg.getString("noimage"),
+				null, JOptionPane.ERROR_MESSAGE);
 	}
 
 	@Override

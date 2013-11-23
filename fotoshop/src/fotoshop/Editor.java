@@ -40,7 +40,7 @@ public class Editor {
 	 * Create the editor and initialise its UI.
 	 */
 	public Editor() {
-//		ui = new CommandLineInterface(this);
+		// ui = new CommandLineInterface(this);
 		ui = new GUI(this);
 		cache = new Cache();
 
@@ -73,10 +73,13 @@ public class Editor {
 	 * @return false if no current image
 	 */
 	private boolean applyFilter(Filter filter) {
-		if (currentImage == null)
+		if (currentImage == null) {
+			ui.printNoImage();
 			return false;
+		}
 		currentImage.addFilter(filter);
 		filter.apply(currentImage);
+		ui.updateImage(currentImage);
 		return true;
 	}
 
@@ -140,14 +143,14 @@ public class Editor {
 					System.getProperty("user.dir"));
 		}
 
-		//TODO handle errors in loadImage
-//		if (img == null) {
-//			ui.printHelp();
-//		} else {
-			currentImage = new ProcessedImage(img, imageFile.getName());
-			ui.printLoaded(currentImage.getName());
-			ui.updateImage(currentImage);
-//		}
+		// TODO handle errors in loadImage
+		// if (img == null) {
+		// ui.printHelp();
+		// } else {
+		currentImage = new ProcessedImage(img, imageFile.getName());
+		ui.printLoaded(currentImage.getName());
+		ui.updateImage(currentImage);
+		// }
 	}
 
 	/**
@@ -171,7 +174,7 @@ public class Editor {
 			ui.printHelp();
 		}
 	}
-	
+
 	/**
 	 * Save an image to a file and handle a possible error
 	 * 
@@ -179,7 +182,7 @@ public class Editor {
 	 *            The new image file
 	 */
 	public void saveImage(File outputFile) {
-		//TODO: handle errors in saveImage
+		// TODO: handle errors in saveImage
 		if (currentImage == null) {
 			ui.printNoImage();
 			return;
@@ -187,11 +190,11 @@ public class Editor {
 
 		try {
 			ImageIO.write(currentImage.getInternal(), "jpg", outputFile);
-//			ui.printSaved(output);
+			// ui.printSaved(output);
 		} catch (IOException e) {
 			e.printStackTrace();
-//			ui.printExceptionMsg(e);
-//			ui.printHelp();
+			// ui.printExceptionMsg(e);
+			// ui.printHelp();
 		}
 	}
 
@@ -201,11 +204,7 @@ public class Editor {
 	 * @return false if no current image
 	 */
 	public boolean mono() {
-		if (applyFilter(new MonoFilter())) {
-			ui.updateImage(currentImage);
-			return true;
-		}
-		return false;
+		return applyFilter(new MonoFilter());
 	}
 
 	/**
