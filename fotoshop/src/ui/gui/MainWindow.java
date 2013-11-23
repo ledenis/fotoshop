@@ -199,6 +199,9 @@ public class MainWindow extends JFrame {
 		sidePanel.add(sequencesPanel);
 	}
 
+	/**
+	 * Add a button to the Filters panel for each filter available
+	 */
 	private void addFiltersButtons() {
 		String[] filtersNames = Filter.getFiltersNames();
 
@@ -214,6 +217,12 @@ public class MainWindow extends JFrame {
 		}
 	}
 
+	/**
+	 * Add a single button to the Filter panel
+	 * 
+	 * @param buttonText The displayed text of the button
+	 * @param action The action attached to the button
+	 */
 	private void addFilterButton(String buttonText, ActionListener action) {
 		JButton button = new JButton(buttonText);
 		button.addActionListener(action);
