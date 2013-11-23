@@ -201,7 +201,11 @@ public class Editor {
 	 * @return false if no current image
 	 */
 	public boolean mono() {
-		return applyFilter(new MonoFilter());
+		if (applyFilter(new MonoFilter())) {
+			ui.updateImage(currentImage);
+			return true;
+		}
+		return false;
 	}
 
 	/**

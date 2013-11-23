@@ -23,6 +23,7 @@ import javax.swing.JSplitPane;
 import javax.swing.UIManager;
 
 import ui.gui.action.LoadAction;
+import ui.gui.action.MonoAction;
 import ui.gui.action.SaveAction;
 import filter.Filter;
 import filter.Sequence;
@@ -158,11 +159,12 @@ public class MainWindow extends JFrame {
 		JPanel filtersPanel = new JPanel();
 		filtersPanel.setLayout(new BoxLayout(filtersPanel, BoxLayout.Y_AXIS));
 		filtersPanel.setBorder(BorderFactory.createTitledBorder("Filters"));
-		filtersPanel.add(new JButton("filteaaaaaaaaaaartest"));
-		filtersPanel.add(new JButton("filtertest"));
-		filtersPanel.add(new JButton("filtertest"));
-		filtersPanel.add(new JButton("filtertest"));
-		filtersPanel.add(new JButton("filtertest"));
+		addFiltersButtons(filtersPanel);
+		// filtersPanel.add(new JButton("filteaaaaaaaaaaartest"));
+		// filtersPanel.add(new JButton("filtertest"));
+		// filtersPanel.add(new JButton("filtertest"));
+		// filtersPanel.add(new JButton("filtertest"));
+		// filtersPanel.add(new JButton("filtertest"));
 
 		// Sequences panel
 		JPanel sequencesPanel = new JPanel();
@@ -198,6 +200,23 @@ public class MainWindow extends JFrame {
 				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER)); // with scrolling
 		sidePanel.add(sequencesPanel);
+	}
+
+	private void addFiltersButtons(JPanel filtersPanel) {
+		String[] filtersNames = Filter.getFiltersNames();
+
+		for (String filter : filtersNames) {
+			if (filter.equals("mono")) {
+				JButton button = new JButton("Monochrome");
+				button.addActionListener(new MonoAction(this, editor));
+				filtersPanel.add(button);
+			} else if (filter.equals("rot90")) {
+				//TODO rot90
+			} else {
+				System.out.println("Filter " + filter
+						+ " not yet implemented in GUI");
+			}
+		}
 	}
 
 	public void updateImage(ProcessedImage currentImage) {
