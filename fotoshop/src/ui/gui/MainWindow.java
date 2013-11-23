@@ -30,7 +30,10 @@ import fotoshop.Editor;
 import fotoshop.ProcessedImage;
 
 /**
- * Main window of the Fotoshop application
+ * Main window of the Fotoshop application. It has 3 parts: top, side and main.
+ * The "top" panel contains some components, including the name. The "side"
+ * panel contains 2 parts: filters and sequences. The "main" panel displays the
+ * current image.
  */
 public class MainWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -42,17 +45,19 @@ public class MainWindow extends JFrame {
 	private JLabel nameLabel;
 
 	private static final String TITLE = "Fotoshop";
-	private static final int PREF_WIDTH = 800;
-	private static final int PREF_HEIGHT = 600;
+	private static final int PREF_WIDTH = 800, PREF_HEIGHT = 600;
 
+	/** The main window of the Fotoshop application in GUI mode */
 	public MainWindow(Editor editor) {
 		this.editor = editor;
 
+		// Use the same theme as the system
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setPreferredSize(new Dimension(PREF_WIDTH, PREF_HEIGHT));
 		setTitle(TITLE);
@@ -142,12 +147,10 @@ public class MainWindow extends JFrame {
 		topPanel.add(revertButton);
 
 		// Side container
-		// JPanel filtersPanel = new JPanel(new FlowLayout());
 		initSideComponents(sidePanel);
 
 		// Main container
 		// mainPanel.add(new JButton("teeeeest"));
-
 	}
 
 	private void initSideComponents(JPanel sidePanel) {
