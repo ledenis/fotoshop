@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
@@ -42,6 +43,7 @@ public class MainWindow extends JFrame {
 	private Editor editor;
 
 	private JPanel mainPanel;
+	private JPanel filtersPanel;
 
 	private JLabel nameLabel;
 
@@ -155,16 +157,10 @@ public class MainWindow extends JFrame {
 	}
 
 	private void initSideComponents(JPanel sidePanel) {
-		// Filters panel
-		JPanel filtersPanel = new JPanel();
+		filtersPanel = new JPanel();
 		filtersPanel.setLayout(new BoxLayout(filtersPanel, BoxLayout.Y_AXIS));
 		filtersPanel.setBorder(BorderFactory.createTitledBorder("Filters"));
-		addFiltersButtons(filtersPanel);
-		// filtersPanel.add(new JButton("filteaaaaaaaaaaartest"));
-		// filtersPanel.add(new JButton("filtertest"));
-		// filtersPanel.add(new JButton("filtertest"));
-		// filtersPanel.add(new JButton("filtertest"));
-		// filtersPanel.add(new JButton("filtertest"));
+		addFiltersButtons();
 
 		// Sequences panel
 		JPanel sequencesPanel = new JPanel();
@@ -202,21 +198,25 @@ public class MainWindow extends JFrame {
 		sidePanel.add(sequencesPanel);
 	}
 
-	private void addFiltersButtons(JPanel filtersPanel) {
+	private void addFiltersButtons() {
 		String[] filtersNames = Filter.getFiltersNames();
 
 		for (String filter : filtersNames) {
 			if (filter.equals("mono")) {
-				JButton button = new JButton("Monochrome");
-				button.addActionListener(new MonoAction(this, editor));
-				filtersPanel.add(button);
+				addFilterButton("Monochrome", new MonoAction(this, editor));
 			} else if (filter.equals("rot90")) {
-				//TODO rot90
+				// TODO rot90
 			} else {
 				System.out.println("Filter " + filter
 						+ " not yet implemented in GUI");
 			}
 		}
+	}
+
+	private void addFilterButton(String buttonText, ActionListener action) {
+		JButton button = new JButton(buttonText);
+		button.addActionListener(action);
+		filtersPanel.add(button);
 	}
 
 	public void updateImage(ProcessedImage currentImage) {
