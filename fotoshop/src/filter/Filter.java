@@ -6,7 +6,7 @@ import fotoshop.ProcessedImage;
 public abstract class Filter {
 	private String name;
 
-	private final static String[] FILTER_NAMES = { "mono", "rot90" };
+	private final static String[] FILTER_NAMES = { "mono", "rot90", "bright" };
 
 	public Filter(String name) {
 		this.name = name;
