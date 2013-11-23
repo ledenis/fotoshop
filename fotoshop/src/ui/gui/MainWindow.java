@@ -25,6 +25,7 @@ import javax.swing.UIManager;
 
 import ui.gui.action.LoadAction;
 import ui.gui.action.MonoAction;
+import ui.gui.action.RotAction;
 import ui.gui.action.SaveAction;
 import filter.Filter;
 import filter.Sequence;
@@ -205,7 +206,7 @@ public class MainWindow extends JFrame {
 			if (filter.equals("mono")) {
 				addFilterButton("Monochrome", new MonoAction(this, editor));
 			} else if (filter.equals("rot90")) {
-				// TODO rot90
+				addFilterButton("Rotate by 90°", new RotAction(this, editor));
 			} else {
 				System.out.println("Filter " + filter
 						+ " not yet implemented in GUI");
