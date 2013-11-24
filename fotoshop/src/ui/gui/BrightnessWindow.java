@@ -1,6 +1,8 @@
 package ui.gui;
 
+import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dialog;
 import java.awt.Frame;
 
 import javax.swing.BoxLayout;
@@ -11,20 +13,40 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import ui.gui.action.BrightAction;
+
+import fotoshop.Editor;
+
 /**
- * This window should appear when the user wants to set a brightness filter. It
- * shows a slider that controls the brightness level of the filter.
+ * This window (modal dialog) should appear when the user wants to set a
+ * brightness filter. It shows a slider that controls the brightness level of
+ * the filter.
+ * 
+ * Note: It has 2 constructors as its parent can be a JFrame or a JDialog
  */
 public class BrightnessWindow extends JDialog {
 	private static final long serialVersionUID = 1L;
 
-	private static final String TEXT = "Adjust the brightness: ";
+	private static final String TEXT = "Adjust the brightness: ",
+			TITLE = "Brightness";
 
 	private JLabel label;
 	private JSlider slider;
 
-	public BrightnessWindow(Frame parent) {
-		super(parent, true);
+	private BrightAction brightAction;
+
+	public BrightnessWindow(Frame parent, Editor editor) {
+		super(parent, true); // modal
+		init(parent, editor);
+	}
+
+	public BrightnessWindow(Dialog parent, Editor editor) {
+		super(parent, true); // modal
+		init(parent, editor);
+	}
+
+	private void init(Component parent, Editor editor) {
+		setTitle(TITLE);
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 
@@ -35,8 +57,9 @@ public class BrightnessWindow extends JDialog {
 		slider.setPaintTicks(true);
 		updateText();
 		JButton okButton = new JButton("Ok");
-		// TODO: actionlistener
-		// okButton.addActionListener(new BrightAction())
+		brightAction = new BrightAction(this, editor, slider.getValue());
+		okButton.addActionListener(brightAction);
+
 		okButton.setAlignmentX(CENTER_ALIGNMENT);
 
 		contentPane.add(label);
@@ -48,6 +71,7 @@ public class BrightnessWindow extends JDialog {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				updateText();
+				brightAction.setValue(slider.getValue());
 			}
 		});
 
