@@ -57,7 +57,7 @@ public class BrightnessWindow extends JDialog {
 		slider.setPaintTicks(true);
 		updateText();
 		JButton okButton = new JButton("Ok");
-		brightAction = new BrightAction(this, editor, slider.getValue());
+		brightAction = new BrightAction(editor, this, slider.getValue());
 		okButton.addActionListener(brightAction);
 
 		okButton.setAlignmentX(CENTER_ALIGNMENT);

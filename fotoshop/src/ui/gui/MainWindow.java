@@ -130,9 +130,9 @@ public class MainWindow extends JFrame {
 			JPanel mainPanel) {
 		// Top container
 		JButton loadButton = new JButton("Load");
-		loadButton.addActionListener(new LoadAction(this, editor));
+		loadButton.addActionListener(new LoadAction(editor));
 		JButton saveButton = new JButton("Save");
-		saveButton.addActionListener(new SaveAction(this, editor));
+		saveButton.addActionListener(new SaveAction(editor));
 		nameLabel = new JLabel("<No image>");
 		Font font = nameLabel.getFont();
 		font = font.deriveFont(Font.BOLD);
@@ -208,12 +208,12 @@ public class MainWindow extends JFrame {
 
 		for (String filter : filtersNames) {
 			if (filter.equals("mono")) {
-				addFilterButton("Monochrome", new MonoAction(this, editor));
+				addFilterButton("Monochrome", new MonoAction(editor));
 			} else if (filter.equals("rot90")) {
-				addFilterButton("Rotate by 90°", new RotAction(this, editor));
+				addFilterButton("Rotate by 90°", new RotAction(editor));
 			} else if (filter.equals("bright")) {
 				addFilterButton("Brightness",
-						new ShowBrightAction(this, editor));
+						new ShowBrightAction(editor, this));
 			} else {
 				System.out.println("Filter " + filter
 						+ " not yet implemented in GUI");

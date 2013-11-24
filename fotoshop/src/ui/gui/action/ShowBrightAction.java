@@ -10,12 +10,15 @@ import fotoshop.Editor;
 public class ShowBrightAction extends GUIAction {
 	private static final long serialVersionUID = 1L;
 
-	public ShowBrightAction(Component parent, Editor editor) {
-		super(parent, editor);
+	private Component parent; // used by the brightness window to be modal
+
+	public ShowBrightAction(Editor editor, Component parent) {
+		super(editor);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		//TODO parent can be the main window (frame) or sequence window (dialog)
 		new BrightnessWindow((Frame) parent, editor).setVisible(true);
 	}
 
