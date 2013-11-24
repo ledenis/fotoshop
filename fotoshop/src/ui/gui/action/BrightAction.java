@@ -9,14 +9,13 @@ import fotoshop.Editor;
 public class BrightAction extends GUIAction {
 	private static final long serialVersionUID = 1L;
 
-	private int brightValue;
+	private float brightValue; // brightness
 
 	private Dialog brightWindow;
 
-	public BrightAction(Editor editor, Dialog brightWindow, int value) {
+	public BrightAction(Editor editor, Dialog brightWindow) {
 		super(editor);
 		this.brightWindow = brightWindow;
-		brightValue = value;
 	}
 
 	@Override
@@ -24,10 +23,10 @@ public class BrightAction extends GUIAction {
 		// TODO not always dispose the brightwindow
 		brightWindow.dispose();
 		// TODO editor bright
-		// editor.bright(brightValue);
+		 editor.bright(brightValue);
 	}
 
-	public void setValue(int value) {
+	public void setValue(float value) {
 		brightValue = value;
 	}
 

@@ -55,12 +55,11 @@ public class BrightnessWindow extends JDialog {
 		slider = new JSlider();
 		slider.setMajorTickSpacing(10);
 		slider.setPaintTicks(true);
-		updateText();
 		JButton okButton = new JButton("Ok");
-		brightAction = new BrightAction(editor, this, slider.getValue());
+		brightAction = new BrightAction(editor, this);
 		okButton.addActionListener(brightAction);
-
 		okButton.setAlignmentX(CENTER_ALIGNMENT);
+		updateBrightness();
 
 		contentPane.add(label);
 		contentPane.add(slider);
@@ -70,15 +69,15 @@ public class BrightnessWindow extends JDialog {
 		slider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				updateText();
-				brightAction.setValue(slider.getValue());
+				updateBrightness();
 			}
 		});
 
 		pack();
 	}
 
-	private void updateText() {
+	private void updateBrightness() {
 		label.setText(TEXT + slider.getValue() + "%");
+		brightAction.setValue(slider.getValue() / 100f);
 	}
 }

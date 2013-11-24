@@ -12,6 +12,7 @@ import ui.commandline.Command;
 import ui.commandline.CommandProcessor;
 import ui.commandline.Parser;
 import ui.gui.GUI;
+import filter.BrightFilter;
 import filter.Filter;
 import filter.MonoFilter;
 import filter.RotFilter;
@@ -214,6 +215,15 @@ public class Editor {
 	 */
 	public boolean rot90() {
 		return applyFilter(new RotFilter());
+	}
+
+	/**
+	 * Set the brightness of the current image to brightValue
+	 * 
+	 * @param brightValue
+	 */
+	public boolean bright(float brightValue) {
+		return applyFilter(new BrightFilter(brightValue));
 	}
 
 	/**
