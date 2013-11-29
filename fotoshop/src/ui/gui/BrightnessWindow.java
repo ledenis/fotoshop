@@ -29,6 +29,7 @@ public class BrightnessWindow extends JDialog {
 
 	private static final String TEXT = "Adjust the brightness: ",
 			TITLE = "Brightness";
+	private static final int MIN = 0, MAX = 200, INIT = 100;
 
 	private JLabel label;
 	private JSlider slider;
@@ -52,7 +53,7 @@ public class BrightnessWindow extends JDialog {
 
 		label = new JLabel();
 		label.setAlignmentX(CENTER_ALIGNMENT);
-		slider = new JSlider();
+		slider = new JSlider(MIN, MAX, INIT);
 		slider.setMajorTickSpacing(10);
 		slider.setPaintTicks(true);
 		JButton okButton = new JButton("Ok");
