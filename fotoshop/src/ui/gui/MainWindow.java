@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
@@ -93,11 +94,15 @@ public class MainWindow extends JFrame {
 		menuBar.add(editMenu);
 
 		// Add menu items
-		JMenuItem loadItem = new JMenuItem("Load");
-		loadItem.setMnemonic(KeyEvent.VK_L);
-		JMenuItem saveItem = new JMenuItem("Save");
-		loadItem.setMnemonic(KeyEvent.VK_S);
+		JMenuItem loadItem = new JMenuItem(new LoadAction(editor));
+		JMenuItem saveItem = new JMenuItem(new SaveAction(editor));
 		JMenuItem exitItem = new JMenuItem("Exit");
+		exitItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		exitItem.setMnemonic(KeyEvent.VK_X);
 
 		fileMenu.add(loadItem);

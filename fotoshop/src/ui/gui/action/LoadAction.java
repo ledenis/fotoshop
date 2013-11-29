@@ -1,6 +1,7 @@
 package ui.gui.action;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.io.File;
 
 import javax.swing.JFileChooser;
@@ -25,5 +26,15 @@ public class LoadAction extends GUIAction {
 
 			editor.loadImage(file);
 		}
+	}
+	
+	@Override
+	protected String getName() {
+		return "Load";
+	}
+
+	@Override
+	protected int getMnemonic() {
+		return KeyEvent.VK_L;
 	}
 }

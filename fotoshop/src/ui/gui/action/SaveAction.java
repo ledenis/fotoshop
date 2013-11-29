@@ -1,6 +1,7 @@
 package ui.gui.action;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.io.File;
 
 import javax.swing.JFileChooser;
@@ -27,4 +28,13 @@ public class SaveAction extends GUIAction {
 		}
 	}
 
+	@Override
+	protected String getName() {
+		return "Save";
+	}
+
+	@Override
+	protected int getMnemonic() {
+		return KeyEvent.VK_L;
+	}
 }
