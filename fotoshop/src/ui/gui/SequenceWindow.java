@@ -44,7 +44,7 @@ public class SequenceWindow extends JDialog {
 
 		// Components
 		initComponents(topPanel, centrePanel, bottomPanel);
-		
+
 		pack();
 	}
 
@@ -52,7 +52,8 @@ public class SequenceWindow extends JDialog {
 			JPanel bottomPanel) {
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
-		((JComponent) contentPane).setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		((JComponent) contentPane).setBorder(BorderFactory.createEmptyBorder(
+				10, 10, 10, 10));
 
 		topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
 		centrePanel.setLayout(new BoxLayout(centrePanel, BoxLayout.X_AXIS));
@@ -67,13 +68,19 @@ public class SequenceWindow extends JDialog {
 
 	private void initComponents(JPanel topPanel, JPanel centrePanel,
 			JPanel bottomPanel) {
+		int fieldSize = 100;
+		
+		// Top
 		nameField = new JTextField();
-
+		nameField.setMaximumSize(new Dimension(fieldSize, nameField
+				.getPreferredSize().height));
+		nameField.setPreferredSize(new Dimension(fieldSize, nameField.getPreferredSize().height));
+		
 		topPanel.add(createSpace());
 		topPanel.add(new JLabel(NAME));
 		topPanel.add(createSpace());
 		topPanel.add(nameField);
-		topPanel.add(createSpace());
+		topPanel.add(Box.createHorizontalGlue());
 
 		// Centre
 		initCentreComponents(centrePanel);
