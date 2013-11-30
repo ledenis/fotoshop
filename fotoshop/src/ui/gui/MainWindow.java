@@ -143,9 +143,7 @@ public class MainWindow extends JFrame {
 		JButton saveButton = new JButton("Save");
 		saveButton.addActionListener(new SaveAction(editor));
 		nameLabel = new JLabel("<No image>");
-		Font font = nameLabel.getFont();
-		font = font.deriveFont(Font.BOLD);
-		nameLabel.setFont(font);
+		nameLabel.setFont(nameLabel.getFont().deriveFont(Font.BOLD));
 		JLabel historyLabel = new JLabel("History:");
 		historyCombo = new JComboBox<>();
 		historyModel = (MutableComboBoxModel<Filter>) historyCombo.getModel();
