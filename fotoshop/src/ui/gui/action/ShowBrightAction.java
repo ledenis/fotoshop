@@ -19,6 +19,7 @@ public class ShowBrightAction extends GUIAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//TODO parent can be the main window (frame) or sequence window (dialog)
+		System.out.println(parent);
 		new BrightnessWindow((Frame) parent, editor).setVisible(true);
 	}
 
