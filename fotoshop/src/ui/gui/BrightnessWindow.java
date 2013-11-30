@@ -1,8 +1,6 @@
 package ui.gui;
 
-import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dialog;
 import java.awt.Frame;
 
 import javax.swing.BoxLayout;
@@ -21,8 +19,6 @@ import fotoshop.Editor;
  * This window (modal dialog) should appear when the user wants to set a
  * brightness filter. It shows a slider that controls the brightness level of
  * the filter.
- * 
- * Note: It has 2 constructors as its parent can be a JFrame or a JDialog
  */
 public class BrightnessWindow extends JDialog {
 	private static final long serialVersionUID = 1L;
@@ -36,17 +32,12 @@ public class BrightnessWindow extends JDialog {
 
 	private BrightAction brightAction;
 
-	public BrightnessWindow(Frame parent, Editor editor) {
-		super(parent, true); // modal
-		init(parent, editor);
+	public BrightnessWindow(Editor editor) {
+		super((Frame) null, true); // modal
+		init(editor);
 	}
 
-	public BrightnessWindow(Dialog parent, Editor editor) {
-		super(parent, true); // modal
-		init(parent, editor);
-	}
-
-	private void init(Component parent, Editor editor) {
+	private void init(Editor editor) {
 		setTitle(TITLE);
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
