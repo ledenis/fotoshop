@@ -307,4 +307,21 @@ public class Editor {
 		}
 		return true;
 	}
+
+	/**
+	 * Undo nb filters
+	 * 
+	 * @param nb
+	 *            Number of times to undo
+	 */
+	public void revert(int nb) {
+		int i;
+		for (i = 0; i < nb && undo(); i++)
+			;
+
+		ui.updateImage(currentImage);
+		if (i != nb) { // undo failed
+			ui.printCantUndo();
+		}
+	}
 }

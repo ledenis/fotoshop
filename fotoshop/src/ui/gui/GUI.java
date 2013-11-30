@@ -88,6 +88,8 @@ public class GUI extends UserInterface {
 
 	@Override
 	public void printCantUndo() {
+		JOptionPane.showMessageDialog(window, msg.getString("cantundo"),
+				null, JOptionPane.ERROR_MESSAGE);
 	}
 
 	@Override
@@ -106,5 +108,4 @@ public class GUI extends UserInterface {
 	public void updateImage(ProcessedImage currentImage) {
 		window.updateImage(currentImage);
 	}
-
 }

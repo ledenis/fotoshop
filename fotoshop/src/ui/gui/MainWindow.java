@@ -22,6 +22,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.MutableComboBoxModel;
 import javax.swing.UIManager;
 
 import ui.gui.action.LoadAction;
@@ -49,9 +50,12 @@ public class MainWindow extends JFrame {
 	private JPanel filtersPanel;
 
 	private JLabel nameLabel;
+	private MutableComboBoxModel<Filter> historyModel;
+	private JComboBox<Filter> historyCombo;
 
 	private static final String TITLE = "Fotoshop";
 	private static final int PREF_WIDTH = 800, PREF_HEIGHT = 600;
+
 
 	/** The main window of the Fotoshop application in GUI mode */
 	public MainWindow(Editor editor) {
@@ -143,9 +147,17 @@ public class MainWindow extends JFrame {
 		font = font.deriveFont(Font.BOLD);
 		nameLabel.setFont(font);
 		JLabel historyLabel = new JLabel("History:");
-		JComboBox<Filter> historyCombo = new JComboBox<>();
+		historyCombo = new JComboBox<>();
+		historyModel = (MutableComboBoxModel<Filter>) historyCombo.getModel();
 		historyCombo.setMaximumSize(historyCombo.getPreferredSize());
 		JButton revertButton = new JButton("Revert");
+		revertButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				editor.revert(historyCombo.getItemCount()
+						- historyCombo.getSelectedIndex() - 1);
+			}
+		});
 
 		topPanel.add(loadButton);
 		topPanel.add(saveButton);
@@ -247,8 +259,20 @@ public class MainWindow extends JFrame {
 		mainPanel.validate();
 		mainPanel.repaint();
 
-		// name
+		// Name
 		nameLabel.setText(currentImage.getName());
+		
+		// History
+		// clear and add
+		while(historyModel.getSize() != 0) {
+			historyModel.removeElementAt(0);
+		}
+		Filter[] filters = currentImage.getFilters();
+		for (Filter f: filters) {
+			historyModel.addElement(f);
+		}
+		
+		// selected value
+		historyCombo.setSelectedIndex(historyModel.getSize() - 1);
 	}
-
 }

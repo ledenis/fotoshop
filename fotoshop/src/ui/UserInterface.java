@@ -72,7 +72,12 @@ public abstract class UserInterface {
 	public abstract void printDontKnow();
 
 	public void updateImage(ProcessedImage currentImage) {
-		
+	}
+
+	public void addHistory(Filter filter) {
+	}
+	
+	public void removeHistory(int nb) {
 	}
 
 }
