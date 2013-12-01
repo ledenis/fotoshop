@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -22,7 +23,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.MutableComboBoxModel;
 import javax.swing.UIManager;
 
 import ui.gui.action.LoadAction;
@@ -50,12 +50,11 @@ public class MainWindow extends JFrame {
 	private JPanel filtersPanel;
 
 	private JLabel nameLabel;
-	private MutableComboBoxModel<Filter> historyModel;
+	private DefaultComboBoxModel<Filter> historyModel;
 	private JComboBox<Filter> historyCombo;
 
 	private static final String TITLE = "Fotoshop";
 	private static final int PREF_WIDTH = 800, PREF_HEIGHT = 600;
-
 
 	/** The main window of the Fotoshop application in GUI mode */
 	public MainWindow(Editor editor) {
@@ -146,7 +145,7 @@ public class MainWindow extends JFrame {
 		nameLabel.setFont(nameLabel.getFont().deriveFont(Font.BOLD));
 		JLabel historyLabel = new JLabel("History:");
 		historyCombo = new JComboBox<>();
-		historyModel = (MutableComboBoxModel<Filter>) historyCombo.getModel();
+		historyModel = (DefaultComboBoxModel<Filter>) historyCombo.getModel();
 		historyCombo.setMaximumSize(historyCombo.getPreferredSize());
 		JButton revertButton = new JButton("Revert");
 		revertButton.addActionListener(new ActionListener() {
@@ -259,17 +258,12 @@ public class MainWindow extends JFrame {
 
 		// Name
 		nameLabel.setText(currentImage.getName());
-		
+
 		// History
-		// clear and add
-		while(historyModel.getSize() != 0) {
-			historyModel.removeElementAt(0);
-		}
-		Filter[] filters = currentImage.getFilters();
-		for (Filter f: filters) {
-			historyModel.addElement(f);
-		}
-		
+		// update model
+		historyModel = new DefaultComboBoxModel<>(currentImage.getFilters());
+		historyCombo.setModel(historyModel);
+
 		// selected value
 		historyCombo.setSelectedIndex(historyModel.getSize() - 1);
 	}
