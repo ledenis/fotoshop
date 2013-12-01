@@ -17,4 +17,9 @@ public class RotAction extends GUIAction {
 		editor.rot90();
 	}
 
+	@Override
+	protected String getName() {
+		return "Rotate by 90°";
+	}
+
 }

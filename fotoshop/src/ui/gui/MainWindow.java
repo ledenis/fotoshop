@@ -115,6 +115,22 @@ public class MainWindow extends JFrame {
 		fileMenu.add(loadItem);
 		fileMenu.add(saveItem);
 		fileMenu.add(exitItem);
+
+		// editMenu
+		String[] filtersNames = Filter.getFiltersNames();
+
+		for (String filter : filtersNames) {
+			if (filter.equals("mono")) {
+				editMenu.add(new JMenuItem(new MonoAction(editor)));
+			} else if (filter.equals("rot90")) {
+				editMenu.add(new JMenuItem(new RotAction(editor)));
+			} else if (filter.equals("bright")) {
+				editMenu.add(new JMenuItem(new ShowBrightAction(editor, this)));
+			} else {
+				System.out.println("Filter " + filter
+						+ " not yet implemented in menu");
+			}
+		}
 	}
 
 	private void initContainers(JPanel topPanel, JPanel sidePanel,
@@ -205,7 +221,8 @@ public class MainWindow extends JFrame {
 		sequencesCombo.getMaximumSize().height = sequencesCombo
 				.getPreferredSize().height;
 		JButton applySeqButton = new JButton("Apply");
-		applySeqButton.addActionListener(new ApplySequenceAction(editor, sequencesCombo));
+		applySeqButton.addActionListener(new ApplySequenceAction(editor,
+				sequencesCombo));
 		sequencesFirstLine.add(sequencesCombo);
 		sequencesFirstLine.add(applySeqButton);
 
@@ -286,12 +303,13 @@ public class MainWindow extends JFrame {
 	 * 
 	 * @param oldName
 	 *            The old name of the updated sequence
-	 * @param sequence The updated sequence
+	 * @param sequence
+	 *            The updated sequence
 	 */
 	public void updateSequence(String oldName, Sequence sequence) {
 		if (oldName == null)
 			oldName = sequence.getName();
-		
+
 		// Find it, and replace it
 		for (int i = 0; i < sequencesCombo.getItemCount(); i++) {
 			if (sequencesCombo.getItemAt(i).getName().equals(oldName)) {

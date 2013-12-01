@@ -16,4 +16,10 @@ public class MonoAction extends GUIAction {
 		editor.mono();
 	}
 
+	@Override
+	protected String getName() {
+		return "Monochrome";
+	}
+	
+
 }

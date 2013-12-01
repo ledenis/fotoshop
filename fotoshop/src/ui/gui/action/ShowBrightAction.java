@@ -18,4 +18,11 @@ public class ShowBrightAction extends GUIAction {
 		new BrightnessWindow(editor).setVisible(true);
 	}
 
+	@Override
+	protected String getName() {
+		return "Brightness...";
+	}
+	
+	
+
 }
