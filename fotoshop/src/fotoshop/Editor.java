@@ -82,7 +82,6 @@ public class Editor {
 			ui.printNoImage();
 			return false;
 		}
-		currentImage.addFilter(filter);
 		filter.apply(currentImage);
 		ui.updateImage(currentImage);
 		return true;
@@ -345,5 +344,14 @@ public class Editor {
 		Sequence sequence = new Sequence(newName, filters);
 		sequencesMap.put(newName, sequence);
 		ui.updateSequence(oldName, sequence);
+	}
+	
+	/**
+	 * Apply a sequence of filters to the current image
+	 * @param sequence The sequence to apply
+	 */
+	public void applySequence(Sequence sequence) {
+		sequence.apply(currentImage);
+		ui.updateImage(currentImage);
 	}
 }

@@ -43,6 +43,19 @@ public class Sequence {
 		return filters.toArray(new Filter[filters.size()]);
 	}
 
+	/**
+	 * Apply all the filters to the image
+	 * 
+	 * @param image
+	 *            The image to apply the filters on
+	 */
+	public void apply(ProcessedImage image) {
+		for (Filter f : filters) {
+			image.addFilter(f);
+			f.apply(image);
+		}
+	}
+
 	@Override
 	public String toString() {
 		return name;

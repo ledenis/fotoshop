@@ -25,6 +25,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.UIManager;
 
+import ui.gui.action.ApplySequenceAction;
 import ui.gui.action.EditSequenceAction;
 import ui.gui.action.LoadAction;
 import ui.gui.action.MonoAction;
@@ -204,6 +205,7 @@ public class MainWindow extends JFrame {
 		sequencesCombo.getMaximumSize().height = sequencesCombo
 				.getPreferredSize().height;
 		JButton applySeqButton = new JButton("Apply");
+		applySeqButton.addActionListener(new ApplySequenceAction(editor, sequencesCombo));
 		sequencesFirstLine.add(sequencesCombo);
 		sequencesFirstLine.add(applySeqButton);
 
