@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -36,6 +38,7 @@ public class Editor {
 	private UserInterface ui;
 	private ProcessedImage currentImage;
 	private Cache cache;
+	private Map<String, Sequence> sequencesMap;
 
 	/**
 	 * Create the editor and initialise its UI.
@@ -44,6 +47,7 @@ public class Editor {
 		// ui = new CommandLineInterface(this);
 		ui = new GUI(this);
 		cache = new Cache();
+		sequencesMap = new HashMap<>();
 
 		// runScript("script.txt");
 	}
@@ -323,5 +327,23 @@ public class Editor {
 		if (i != nb) { // undo failed
 			ui.printCantUndo();
 		}
+	}
+
+	/**
+	 * Update the sequence named oldName by the updated one named newName with
+	 * filters
+	 * 
+	 * @param oldName
+	 *            The name before update
+	 * @param newName
+	 *            Name of the updated sequence
+	 * @param filters
+	 *            Filters to set
+	 */
+	public void updateSequence(String oldName, String newName, Filter[] filters) {
+		sequencesMap.remove(oldName);
+		Sequence sequence = new Sequence(newName, filters);
+		sequencesMap.put(newName, sequence);
+		ui.updateSequence(oldName, sequence);
 	}
 }

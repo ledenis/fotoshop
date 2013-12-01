@@ -32,9 +32,9 @@ import ui.gui.action.RotAction;
 import ui.gui.action.SaveAction;
 import ui.gui.action.ShowBrightAction;
 import filter.Filter;
-import filter.Sequence;
 import fotoshop.Editor;
 import fotoshop.ProcessedImage;
+import fotoshop.Sequence;
 
 /**
  * Main window of the Fotoshop application. It has 3 parts: top, side and main.
@@ -56,6 +56,8 @@ public class MainWindow extends JFrame {
 
 	private static final String TITLE = "Fotoshop";
 	private static final int PREF_WIDTH = 800, PREF_HEIGHT = 600;
+
+	private JComboBox<Sequence> sequencesCombo;
 
 	/** The main window of the Fotoshop application in GUI mode */
 	public MainWindow(Editor editor) {
@@ -170,7 +172,7 @@ public class MainWindow extends JFrame {
 		initSideComponents(sidePanel);
 
 		// Main container
-		// mainPanel.add(new JButton("teeeeest"));
+		// ...
 	}
 
 	private void initSideComponents(JPanel sidePanel) {
@@ -195,17 +197,22 @@ public class MainWindow extends JFrame {
 		sequencesPanel.add(sequencesFirstLine);
 		sequencesPanel.add(sequencesSecondLine);
 
-		// init first line
-		JComboBox<Sequence> sequencesCombo = new JComboBox<>();
-		sequencesCombo.setMaximumSize(sequencesCombo.getPreferredSize());
+		sequencesCombo = new JComboBox<>();
+		Dimension seqSize = sequencesCombo.getPreferredSize();
+		seqSize.width = Integer.MAX_VALUE;
+		sequencesCombo.setMaximumSize(seqSize);
+		sequencesCombo.getMaximumSize().height = sequencesCombo
+				.getPreferredSize().height;
 		JButton applySeqButton = new JButton("Apply");
 		sequencesFirstLine.add(sequencesCombo);
 		sequencesFirstLine.add(applySeqButton);
 
 		// init second line
 		JButton editSeqButton = new JButton("Edit");
-		editSeqButton.addActionListener(new EditSequenceAction(editor));
 		JButton newSeqButton = new JButton("New");
+		editSeqButton.addActionListener(new EditSequenceAction(editor,
+				sequencesCombo));
+		newSeqButton.addActionListener(new EditSequenceAction(editor));
 		sequencesSecondLine.add(editSeqButton);
 		sequencesSecondLine.add(newSeqButton);
 
@@ -213,7 +220,9 @@ public class MainWindow extends JFrame {
 		sidePanel.add(new JScrollPane(filtersPanel,
 				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER)); // with scrolling
-		sidePanel.add(sequencesPanel);
+		sidePanel.add(new JScrollPane(sequencesPanel,
+				JScrollPane.VERTICAL_SCROLLBAR_NEVER,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
 	}
 
 	/**
@@ -268,5 +277,29 @@ public class MainWindow extends JFrame {
 
 		// selected value
 		historyCombo.setSelectedIndex(historyModel.getSize() - 1);
+	}
+
+	/**
+	 * Update the sequence combobox
+	 * 
+	 * @param oldName
+	 *            The old name of the updated sequence
+	 * @param sequence The updated sequence
+	 */
+	public void updateSequence(String oldName, Sequence sequence) {
+		if (oldName == null)
+			oldName = sequence.getName();
+		
+		// Find it, and replace it
+		for (int i = 0; i < sequencesCombo.getItemCount(); i++) {
+			if (sequencesCombo.getItemAt(i).getName().equals(oldName)) {
+				sequencesCombo.removeItemAt(i);
+				sequencesCombo.insertItemAt(sequence, i);
+				return;
+			}
+		}
+
+		// If not found, add it
+		sequencesCombo.addItem(sequence);
 	}
 }

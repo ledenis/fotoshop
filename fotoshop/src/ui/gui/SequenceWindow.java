@@ -16,6 +16,7 @@ import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -25,6 +26,7 @@ import filter.Filter;
 import filter.MonoFilter;
 import filter.RotFilter;
 import fotoshop.Editor;
+import fotoshop.Sequence;
 
 /**
  * A window that enables the user to edit a sequence of filters
@@ -35,12 +37,18 @@ public class SequenceWindow extends JDialog {
 	private static final String TITLE = "Sequences", NAME = "Sequence name:",
 			CHOOSE = "Choose filters to insert", CONTENT = "Sequence content";
 
+	private Editor editor;
+
+	private String oldName;
 	private JTextField nameField;
 	private JPanel filtersPanel;
 	private JList<Filter> contentList;
 
+	private DefaultListModel<Filter> contentModel;
+
 	public SequenceWindow(Editor editor) {
 		super((Frame) null, true); // modal
+		this.editor = editor;
 		setTitle(TITLE);
 
 		// Containers
@@ -98,6 +106,26 @@ public class SequenceWindow extends JDialog {
 
 		bottomPanel.add(Box.createHorizontalGlue());
 		bottomPanel.add(okButton);
+
+		// ActionListener
+		okButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (nameField.getText().equals("")) {
+					JOptionPane.showMessageDialog(SequenceWindow.this,
+							"Please enter a sequence name", null,
+							JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				Filter[] filters = new Filter[contentModel.getSize()];
+				contentModel.copyInto(filters);
+
+				if (oldName == null)
+					oldName = nameField.getText();
+				editor.updateSequence(oldName, nameField.getText(), filters);
+				dispose();
+			}
+		});
 	}
 
 	private void initCentreComponents(JPanel centrePanel) {
@@ -128,7 +156,8 @@ public class SequenceWindow extends JDialog {
 		leftPanel.add(new JScrollPane(filtersPanel));
 
 		// right
-		contentList = new JList<>(new DefaultListModel<Filter>());
+		contentModel = new DefaultListModel<Filter>();
+		contentList = new JList<>(contentModel);
 		contentList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		JButton deleteButton = new JButton("Delete");
 
@@ -159,7 +188,8 @@ public class SequenceWindow extends JDialog {
 				addFilterButton("Brightness", new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						new BrightnessWindow(SequenceWindow.this).setVisible(true);
+						new BrightnessWindow(SequenceWindow.this)
+								.setVisible(true);
 					}
 				});
 			} else {
@@ -203,13 +233,26 @@ public class SequenceWindow extends JDialog {
 	}
 
 	public void insertFilter(final Filter filter) {
-		DefaultListModel<Filter> model = (DefaultListModel<Filter>) contentList
-				.getModel();
 		int selectedIndex = contentList.getSelectedIndex();
 		if (selectedIndex == -1) {
-			model.addElement(filter);
+			contentModel.addElement(filter);
 		} else {
-			model.add(selectedIndex, filter);
+			contentModel.add(selectedIndex, filter);
+		}
+	}
+
+	/**
+	 * Fill the form with the sequence informations: name and filters
+	 * 
+	 * @param sequence
+	 */
+	public void fillForm(Sequence sequence) {
+		oldName = sequence.getName();
+		nameField.setText(oldName);
+
+		Filter[] filters = sequence.getFilters();
+		for (Filter f : filters) {
+			contentModel.addElement(f);
 		}
 	}
 }

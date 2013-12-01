@@ -2,10 +2,11 @@ package ui.gui;
 
 import javax.swing.JOptionPane;
 
+import ui.UserInterface;
 import filter.Filter;
 import fotoshop.Editor;
 import fotoshop.ProcessedImage;
-import ui.UserInterface;
+import fotoshop.Sequence;
 
 /** It is the Swing graphical user interface */
 public class GUI extends UserInterface {
@@ -82,14 +83,14 @@ public class GUI extends UserInterface {
 
 	@Override
 	public void printNoImage() {
-		JOptionPane.showMessageDialog(window, msg.getString("noimage"),
-				null, JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(window, msg.getString("noimage"), null,
+				JOptionPane.ERROR_MESSAGE);
 	}
 
 	@Override
 	public void printCantUndo() {
-		JOptionPane.showMessageDialog(window, msg.getString("cantundo"),
-				null, JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(window, msg.getString("cantundo"), null,
+				JOptionPane.ERROR_MESSAGE);
 	}
 
 	@Override
@@ -107,5 +108,10 @@ public class GUI extends UserInterface {
 	@Override
 	public void updateImage(ProcessedImage currentImage) {
 		window.updateImage(currentImage);
+	}
+
+	@Override
+	public void updateSequence(String name, Sequence sequence) {
+		window.updateSequence(name, sequence);
 	}
 }

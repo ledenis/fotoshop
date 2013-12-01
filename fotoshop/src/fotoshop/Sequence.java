@@ -42,4 +42,9 @@ public class Sequence {
 	public Filter[] getFilters() {
 		return filters.toArray(new Filter[filters.size()]);
 	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
 }

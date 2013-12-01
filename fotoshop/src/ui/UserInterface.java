@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import filter.Filter;
 import fotoshop.Editor;
 import fotoshop.ProcessedImage;
+import fotoshop.Sequence;
 
 /**
  * An user interface manager that abstracts the implementation of the user
@@ -74,10 +75,6 @@ public abstract class UserInterface {
 	public void updateImage(ProcessedImage currentImage) {
 	}
 
-	public void addHistory(Filter filter) {
+	public void updateSequence(String name, Sequence sequence) {
 	}
-	
-	public void removeHistory(int nb) {
-	}
-
 }
