@@ -164,6 +164,17 @@ public class SequenceWindow extends JDialog {
 		listPanel.add(new JLabel(CONTENT));
 		listPanel.add(new JScrollPane(contentList));
 		rightPanel.add(deleteButton);
+
+		// Action Listener
+		deleteButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int selectedIndex = contentList.getSelectedIndex();
+				if (selectedIndex != -1) {
+					contentModel.remove(selectedIndex);
+				}
+			}
+		});
 	}
 
 	/**
