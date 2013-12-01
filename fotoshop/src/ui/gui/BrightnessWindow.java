@@ -12,7 +12,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import ui.gui.action.BrightAction;
-
 import fotoshop.Editor;
 
 /**
@@ -27,6 +26,8 @@ public class BrightnessWindow extends JDialog {
 			TITLE = "Brightness";
 	private static final int MIN = 0, MAX = 200, INIT = 100;
 
+	private SequenceWindow seqWindow;
+
 	private JLabel label;
 	private JSlider slider;
 
@@ -34,6 +35,12 @@ public class BrightnessWindow extends JDialog {
 
 	public BrightnessWindow(Editor editor) {
 		super((Frame) null, true); // modal
+		init(editor);
+	}
+
+	public BrightnessWindow(Editor editor, SequenceWindow seqWindow) {
+		super(seqWindow, true); // modal
+		this.seqWindow = seqWindow;
 		init(editor);
 	}
 
