@@ -21,7 +21,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
-import filter.BrightFilter;
 import filter.Filter;
 import filter.MonoFilter;
 import filter.RotFilter;
@@ -157,7 +156,12 @@ public class SequenceWindow extends JDialog {
 			} else if (filter.equals("rot90")) {
 				addFilterButton("Rotate by 90°", new RotFilter());
 			} else if (filter.equals("bright")) {
-				addFilterButton("Brightness", new BrightFilter(0.5f));
+				addFilterButton("Brightness", new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						new BrightnessWindow(SequenceWindow.this).setVisible(true);
+					}
+				});
 			} else {
 				System.out.println("Filter " + filter
 						+ " not yet implemented in Sequence GUI");
@@ -183,7 +187,21 @@ public class SequenceWindow extends JDialog {
 		});
 		filtersPanel.add(button);
 	}
-	
+
+	/**
+	 * Add a single button to the Filter panel
+	 * 
+	 * @param buttonText
+	 *            The displayed text of the button
+	 * @param action
+	 *            The action attached to the button
+	 */
+	private void addFilterButton(String buttonText, ActionListener action) {
+		JButton button = new JButton(buttonText);
+		button.addActionListener(action);
+		filtersPanel.add(button);
+	}
+
 	public void insertFilter(final Filter filter) {
 		DefaultListModel<Filter> model = (DefaultListModel<Filter>) contentList
 				.getModel();

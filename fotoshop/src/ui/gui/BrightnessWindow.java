@@ -20,7 +20,7 @@ import fotoshop.Editor;
 /**
  * This window (modal dialog) should appear when the user wants to set a
  * brightness filter. It shows a slider that controls the brightness level of
- * the filter.
+ * the filter. It is called either from the MainWindow, or the SequenceWindow
  */
 public class BrightnessWindow extends JDialog {
 	private static final long serialVersionUID = 1L;
@@ -38,16 +38,21 @@ public class BrightnessWindow extends JDialog {
 
 	public BrightnessWindow(Editor editor) {
 		super((Frame) null, true); // modal
-		init(editor);
+		brightAction = new BrightAction(editor, this);
+		init();
 	}
 
-	public BrightnessWindow(Editor editor, SequenceWindow seqWindow) {
+	/**
+	 * This contructor is used when this dialog is called from the sequence
+	 * dialog
+	 */
+	public BrightnessWindow(SequenceWindow seqWindow) {
 		super(seqWindow, true); // modal
 		this.seqWindow = seqWindow;
-		init(editor);
+		init();
 	}
 
-	private void init(Editor editor) {
+	private void init() {
 		setTitle(TITLE);
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
@@ -58,7 +63,7 @@ public class BrightnessWindow extends JDialog {
 		slider.setMajorTickSpacing(10);
 		slider.setPaintTicks(true);
 		JButton okButton = new JButton("Ok");
-		brightAction = new BrightAction(editor, this);
+
 		okButton.setAlignmentX(CENTER_ALIGNMENT);
 		updateBrightness();
 
@@ -67,7 +72,6 @@ public class BrightnessWindow extends JDialog {
 		contentPane.add(okButton);
 
 		// action listener
-		
 		slider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
@@ -75,13 +79,14 @@ public class BrightnessWindow extends JDialog {
 			}
 		});
 
-		if (seqWindow == null) {
+		if (seqWindow == null) { // if we are from the MainWindow
 			okButton.addActionListener(brightAction);
-		} else {
+		} else { // from the sequence window
 			okButton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					seqWindow.insertFilter(new BrightFilter(getValue()));
+					dispose();
 				}
 			});
 		}
@@ -91,9 +96,11 @@ public class BrightnessWindow extends JDialog {
 
 	private void updateBrightness() {
 		label.setText(TEXT + slider.getValue() + "%");
-		brightAction.setValue(getValue());
+		if (brightAction != null) {
+			brightAction.setValue(getValue());
+		}
 	}
-	
+
 	private float getValue() {
 		return slider.getValue() / 100f;
 	}
