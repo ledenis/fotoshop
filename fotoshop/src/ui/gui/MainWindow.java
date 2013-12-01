@@ -25,6 +25,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.UIManager;
 
+import ui.gui.action.EditSequenceAction;
 import ui.gui.action.LoadAction;
 import ui.gui.action.MonoAction;
 import ui.gui.action.RotAction;
@@ -203,6 +204,7 @@ public class MainWindow extends JFrame {
 
 		// init second line
 		JButton editSeqButton = new JButton("Edit");
+		editSeqButton.addActionListener(new EditSequenceAction(editor));
 		JButton newSeqButton = new JButton("New");
 		sequencesSecondLine.add(editSeqButton);
 		sequencesSecondLine.add(newSeqButton);
