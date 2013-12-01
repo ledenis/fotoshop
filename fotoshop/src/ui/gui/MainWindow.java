@@ -252,31 +252,16 @@ public class MainWindow extends JFrame {
 
 		for (String filter : filtersNames) {
 			if (filter.equals("mono")) {
-				addFilterButton("Monochrome", new MonoAction(editor));
+				filtersPanel.add(new JButton(new MonoAction(editor)));
 			} else if (filter.equals("rot90")) {
-				addFilterButton("Rotate by 90°", new RotAction(editor));
+				filtersPanel.add(new JButton(new RotAction(editor)));
 			} else if (filter.equals("bright")) {
-				addFilterButton("Brightness",
-						new ShowBrightAction(editor, this));
+				filtersPanel.add(new JButton(new ShowBrightAction(editor, this)));
 			} else {
 				System.out.println("Filter " + filter
 						+ " not yet implemented in GUI");
 			}
 		}
-	}
-
-	/**
-	 * Add a single button to the Filter panel
-	 * 
-	 * @param buttonText
-	 *            The displayed text of the button
-	 * @param action
-	 *            The action attached to the button
-	 */
-	private void addFilterButton(String buttonText, ActionListener action) {
-		JButton button = new JButton(buttonText);
-		button.addActionListener(action);
-		filtersPanel.add(button);
 	}
 
 	public void updateImage(ProcessedImage currentImage) {
