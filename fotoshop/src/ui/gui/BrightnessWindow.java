@@ -2,6 +2,8 @@ package ui.gui;
 
 import java.awt.Container;
 import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -12,6 +14,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import ui.gui.action.BrightAction;
+import filter.BrightFilter;
 import fotoshop.Editor;
 
 /**
@@ -56,7 +59,6 @@ public class BrightnessWindow extends JDialog {
 		slider.setPaintTicks(true);
 		JButton okButton = new JButton("Ok");
 		brightAction = new BrightAction(editor, this);
-		okButton.addActionListener(brightAction);
 		okButton.setAlignmentX(CENTER_ALIGNMENT);
 		updateBrightness();
 
@@ -65,6 +67,7 @@ public class BrightnessWindow extends JDialog {
 		contentPane.add(okButton);
 
 		// action listener
+		
 		slider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
@@ -72,11 +75,26 @@ public class BrightnessWindow extends JDialog {
 			}
 		});
 
+		if (seqWindow == null) {
+			okButton.addActionListener(brightAction);
+		} else {
+			okButton.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					seqWindow.insertFilter(new BrightFilter(getValue()));
+				}
+			});
+		}
+
 		pack();
 	}
 
 	private void updateBrightness() {
 		label.setText(TEXT + slider.getValue() + "%");
-		brightAction.setValue(slider.getValue() / 100f);
+		brightAction.setValue(getValue());
+	}
+	
+	private float getValue() {
+		return slider.getValue() / 100f;
 	}
 }

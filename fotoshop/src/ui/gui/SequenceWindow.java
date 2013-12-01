@@ -177,17 +177,21 @@ public class SequenceWindow extends JDialog {
 		JButton button = new JButton(buttonText);
 		button.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				DefaultListModel<Filter> model = (DefaultListModel<Filter>) contentList
-						.getModel();
-				int selectedIndex = contentList.getSelectedIndex();
-				if (selectedIndex == -1) {
-					model.addElement(filter);
-				} else {
-					model.add(selectedIndex, filter);
-				}
+			public void actionPerformed(ActionEvent e) {
+				insertFilter(filter);
 			}
 		});
 		filtersPanel.add(button);
+	}
+	
+	public void insertFilter(final Filter filter) {
+		DefaultListModel<Filter> model = (DefaultListModel<Filter>) contentList
+				.getModel();
+		int selectedIndex = contentList.getSelectedIndex();
+		if (selectedIndex == -1) {
+			model.addElement(filter);
+		} else {
+			model.add(selectedIndex, filter);
+		}
 	}
 }
