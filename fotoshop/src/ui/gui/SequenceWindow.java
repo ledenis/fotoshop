@@ -4,10 +4,13 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
@@ -16,7 +19,12 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 
+import filter.BrightFilter;
+import filter.Filter;
+import filter.MonoFilter;
+import filter.RotFilter;
 import fotoshop.Editor;
 
 /**
@@ -28,9 +36,9 @@ public class SequenceWindow extends JDialog {
 	private static final String TITLE = "Sequences", NAME = "Sequence name:",
 			CHOOSE = "Choose filters to insert", CONTENT = "Sequence content";
 
-	private JList<String> contentList;
-
 	private JTextField nameField;
+	private JPanel filtersPanel;
+	private JList<Filter> contentList;
 
 	public SequenceWindow(Editor editor) {
 		super((Frame) null, true); // modal
@@ -69,13 +77,14 @@ public class SequenceWindow extends JDialog {
 	private void initComponents(JPanel topPanel, JPanel centrePanel,
 			JPanel bottomPanel) {
 		int fieldSize = 100;
-		
+
 		// Top
 		nameField = new JTextField();
 		nameField.setMaximumSize(new Dimension(fieldSize, nameField
 				.getPreferredSize().height));
-		nameField.setPreferredSize(new Dimension(fieldSize, nameField.getPreferredSize().height));
-		
+		nameField.setPreferredSize(new Dimension(fieldSize, nameField
+				.getPreferredSize().height));
+
 		topPanel.add(createSpace());
 		topPanel.add(new JLabel(NAME));
 		topPanel.add(createSpace());
@@ -112,11 +121,16 @@ public class SequenceWindow extends JDialog {
 
 		// Components
 		// left
+		filtersPanel = new JPanel();
+		filtersPanel.setLayout(new BoxLayout(filtersPanel, BoxLayout.Y_AXIS));
+		addFiltersButtons();
+
 		leftPanel.add(new JLabel(CHOOSE));
-		leftPanel.add(new JScrollPane(new JPanel()));
+		leftPanel.add(new JScrollPane(filtersPanel));
 
 		// right
-		contentList = new JList<>();
+		contentList = new JList<>(new DefaultListModel<Filter>());
+		contentList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		JButton deleteButton = new JButton("Delete");
 
 		listPanel.add(new JLabel(CONTENT));
@@ -129,5 +143,51 @@ public class SequenceWindow extends JDialog {
 	 */
 	private Component createSpace() {
 		return Box.createRigidArea(new Dimension(10, 10));
+	}
+
+	/**
+	 * Add a button to the Filters panel for each filter available
+	 */
+	private void addFiltersButtons() {
+		String[] filtersNames = Filter.getFiltersNames();
+
+		for (String filter : filtersNames) {
+			if (filter.equals("mono")) {
+				addFilterButton("Monochrome", new MonoFilter());
+			} else if (filter.equals("rot90")) {
+				addFilterButton("Rotate by 90°", new RotFilter());
+			} else if (filter.equals("bright")) {
+				addFilterButton("Brightness", new BrightFilter(0.5f));
+			} else {
+				System.out.println("Filter " + filter
+						+ " not yet implemented in Sequence GUI");
+			}
+		}
+	}
+
+	/**
+	 * Add a single button to the Filter panel
+	 * 
+	 * @param buttonText
+	 *            The displayed text of the button
+	 * @param filter
+	 *            The filter corresponding to the button
+	 */
+	private void addFilterButton(String buttonText, final Filter filter) {
+		JButton button = new JButton(buttonText);
+		button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				DefaultListModel<Filter> model = (DefaultListModel<Filter>) contentList
+						.getModel();
+				int selectedIndex = contentList.getSelectedIndex();
+				if (selectedIndex == -1) {
+					model.addElement(filter);
+				} else {
+					model.add(selectedIndex, filter);
+				}
+			}
+		});
+		filtersPanel.add(button);
 	}
 }
