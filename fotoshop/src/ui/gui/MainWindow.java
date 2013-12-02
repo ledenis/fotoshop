@@ -171,8 +171,9 @@ public class MainWindow extends JFrame {
 		revertButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				editor.revert(historyCombo.getItemCount()
-						- historyCombo.getSelectedIndex() - 1);
+				if (historyCombo.getItemCount() != 0)
+					editor.revert(historyCombo.getItemCount()
+							- historyCombo.getSelectedIndex() - 1);
 			}
 		});
 
@@ -256,7 +257,8 @@ public class MainWindow extends JFrame {
 			} else if (filter.equals("rot90")) {
 				filtersPanel.add(new JButton(new RotAction(editor)));
 			} else if (filter.equals("bright")) {
-				filtersPanel.add(new JButton(new ShowBrightAction(editor, this)));
+				filtersPanel
+						.add(new JButton(new ShowBrightAction(editor, this)));
 			} else {
 				System.out.println("Filter " + filter
 						+ " not yet implemented in GUI");

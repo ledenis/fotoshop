@@ -196,7 +196,7 @@ public class SequenceWindow extends JDialog {
 			} else if (filter.equals("rot90")) {
 				addFilterButton("Rotate by 90°", new RotFilter());
 			} else if (filter.equals("bright")) {
-				addFilterButton("Brightness", new ActionListener() {
+				addFilterButton("Brightness...", new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						new BrightnessWindow(SequenceWindow.this)
