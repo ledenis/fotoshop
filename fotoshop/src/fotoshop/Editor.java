@@ -82,6 +82,7 @@ public class Editor {
 			ui.printNoImage();
 			return false;
 		}
+		currentImage.addFilter(filter);
 		filter.apply(currentImage);
 		ui.updateImage(currentImage);
 		return true;
