@@ -171,9 +171,13 @@ public class MainWindow extends JFrame {
 		revertButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (historyCombo.getItemCount() != 0)
+				if (historyCombo.getItemCount() != 0) {
+					// TODO: bug: the combobox select the first occurence with
+					// same text
+					// System.out.println(historyCombo.getSelectedIndex());
 					editor.revert(historyCombo.getItemCount()
 							- historyCombo.getSelectedIndex() - 1);
+				}
 			}
 		});
 
