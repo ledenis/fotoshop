@@ -1,4 +1,4 @@
-package filter;
+package fotoshop.filter;
 
 import java.awt.Color;
 

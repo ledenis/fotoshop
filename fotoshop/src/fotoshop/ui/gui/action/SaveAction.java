@@ -1,4 +1,4 @@
-package ui.gui.action;
+package fotoshop.ui.gui.action;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -8,11 +8,11 @@ import javax.swing.JFileChooser;
 
 import fotoshop.Editor;
 
-/** Load an image using a file chooser dialog */
-public class LoadAction extends GUIAction {
+/** Save an image to a file using a save file dialog */
+public class SaveAction extends GUIAction {
 	private static final long serialVersionUID = 1L;
 
-	public LoadAction(Editor editor) {
+	public SaveAction(Editor editor) {
 		super(editor);
 	}
 
@@ -20,17 +20,17 @@ public class LoadAction extends GUIAction {
 	public void actionPerformed(ActionEvent ev) {
 		JFileChooser fileChooser = new JFileChooser();
 
-		int result = fileChooser.showOpenDialog(null);
+		int result = fileChooser.showSaveDialog(null);
 		if (result == JFileChooser.APPROVE_OPTION) {
 			File file = fileChooser.getSelectedFile();
 
-			editor.loadImage(file);
+			editor.saveImage(file);
 		}
 	}
-	
+
 	@Override
 	protected String getName() {
-		return "Load";
+		return "Save";
 	}
 
 	@Override

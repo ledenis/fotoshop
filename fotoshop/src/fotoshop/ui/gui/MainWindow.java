@@ -1,4 +1,4 @@
-package ui.gui;
+package fotoshop.ui.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -25,17 +25,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.UIManager;
 
-import ui.gui.action.ApplySequenceAction;
-import ui.gui.action.EditSequenceAction;
-import ui.gui.action.LoadAction;
-import ui.gui.action.MonoAction;
-import ui.gui.action.RotAction;
-import ui.gui.action.SaveAction;
-import ui.gui.action.ShowBrightAction;
-import filter.Filter;
 import fotoshop.Editor;
 import fotoshop.ProcessedImage;
 import fotoshop.Sequence;
+import fotoshop.filter.Filter;
+import fotoshop.ui.gui.action.ApplySequenceAction;
+import fotoshop.ui.gui.action.EditSequenceAction;
+import fotoshop.ui.gui.action.LoadAction;
+import fotoshop.ui.gui.action.MonoAction;
+import fotoshop.ui.gui.action.RotAction;
+import fotoshop.ui.gui.action.SaveAction;
+import fotoshop.ui.gui.action.ShowBrightAction;
 
 /**
  * Main window of the Fotoshop application. It has 3 parts: top, side and main.

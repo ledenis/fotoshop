@@ -1,4 +1,4 @@
-package ui.gui;
+package fotoshop.ui.gui;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -22,11 +22,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
-import filter.Filter;
-import filter.MonoFilter;
-import filter.RotFilter;
 import fotoshop.Editor;
 import fotoshop.Sequence;
+import fotoshop.filter.Filter;
+import fotoshop.filter.MonoFilter;
+import fotoshop.filter.RotFilter;
 
 /**
  * A window that enables the user to edit a sequence of filters

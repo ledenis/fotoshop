@@ -1,12 +1,12 @@
-package ui.gui;
+package fotoshop.ui.gui;
 
 import javax.swing.JOptionPane;
 
-import ui.UserInterface;
-import filter.Filter;
 import fotoshop.Editor;
 import fotoshop.ProcessedImage;
 import fotoshop.Sequence;
+import fotoshop.filter.Filter;
+import fotoshop.ui.UserInterface;
 
 /** It is the Swing graphical user interface */
 public class GUI extends UserInterface {

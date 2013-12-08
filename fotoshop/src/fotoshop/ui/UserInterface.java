@@ -1,12 +1,12 @@
-package ui;
+package fotoshop.ui;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import filter.Filter;
 import fotoshop.Editor;
 import fotoshop.ProcessedImage;
 import fotoshop.Sequence;
+import fotoshop.filter.Filter;
 
 /**
  * An user interface manager that abstracts the implementation of the user

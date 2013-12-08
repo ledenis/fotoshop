@@ -1,8 +1,8 @@
-package ui.commandline;
+package fotoshop.ui.commandline;
 
-import ui.UserInterface;
-import filter.Filter;
 import fotoshop.Editor;
+import fotoshop.filter.Filter;
+import fotoshop.ui.UserInterface;
 
 /**
  * This class allows the user to type command lines. It creates the parser and

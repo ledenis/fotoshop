@@ -1,4 +1,4 @@
-package ui.commandline;
+package fotoshop.ui.commandline;
 
 /**
  * This class is taken from the "World of Zuul" application. "World of Zuul" is

@@ -9,15 +9,15 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import ui.UserInterface;
-import ui.commandline.Command;
-import ui.commandline.CommandProcessor;
-import ui.commandline.Parser;
-import ui.gui.GUI;
-import filter.BrightFilter;
-import filter.Filter;
-import filter.MonoFilter;
-import filter.RotFilter;
+import fotoshop.filter.BrightFilter;
+import fotoshop.filter.Filter;
+import fotoshop.filter.MonoFilter;
+import fotoshop.filter.RotFilter;
+import fotoshop.ui.UserInterface;
+import fotoshop.ui.commandline.Command;
+import fotoshop.ui.commandline.CommandProcessor;
+import fotoshop.ui.commandline.Parser;
+import fotoshop.ui.gui.GUI;
 
 /**
  * This class is the main processing class of the Fotoshop application. Fotoshop

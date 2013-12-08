@@ -1,10 +1,10 @@
-package ui.gui.action;
+package fotoshop.ui.gui.action;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 
-import ui.gui.BrightnessWindow;
 import fotoshop.Editor;
+import fotoshop.ui.gui.BrightnessWindow;
 
 public class ShowBrightAction extends GUIAction {
 	private static final long serialVersionUID = 1L;

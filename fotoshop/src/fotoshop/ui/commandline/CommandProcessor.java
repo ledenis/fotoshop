@@ -1,7 +1,7 @@
-package ui.commandline;
+package fotoshop.ui.commandline;
 
-import ui.UserInterface;
 import fotoshop.Editor;
+import fotoshop.ui.UserInterface;
 
 /**
  * This class evaluates commands and let the editor execute it.

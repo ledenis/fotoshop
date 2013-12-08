@@ -1,4 +1,4 @@
-package ui.commandline;
+package fotoshop.ui.commandline;
 
 import java.io.FileInputStream;
 import java.util.Scanner;

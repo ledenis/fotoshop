@@ -1,13 +1,12 @@
-package ui.gui.action;
+package fotoshop.ui.gui.action;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.JComboBox;
 
-import ui.gui.SequenceWindow;
-
 import fotoshop.Editor;
 import fotoshop.Sequence;
+import fotoshop.ui.gui.SequenceWindow;
 
 public class EditSequenceAction extends GUIAction {
 	private static final long serialVersionUID = 1L;

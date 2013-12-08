@@ -3,7 +3,7 @@ package fotoshop;
 import java.util.Arrays;
 import java.util.List;
 
-import filter.Filter;
+import fotoshop.filter.Filter;
 
 /**
  * It is a sequence of filters. Applying a sequence to an image means applying

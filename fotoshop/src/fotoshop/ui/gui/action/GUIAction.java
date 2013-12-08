@@ -1,4 +1,4 @@
-package ui.gui.action;
+package fotoshop.ui.gui.action;
 
 import javax.swing.AbstractAction;
 

@@ -1,4 +1,4 @@
-package ui.gui;
+package fotoshop.ui.gui;
 
 import java.awt.Container;
 import java.awt.Frame;
@@ -13,9 +13,9 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import ui.gui.action.BrightAction;
-import filter.BrightFilter;
 import fotoshop.Editor;
+import fotoshop.filter.BrightFilter;
+import fotoshop.ui.gui.action.BrightAction;
 
 /**
  * This window (modal dialog) should appear when the user wants to set a

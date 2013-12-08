@@ -1,4 +1,4 @@
-package ui.gui.action;
+package fotoshop.ui.gui.action;
 
 import java.awt.Dialog;
 import java.awt.event.ActionEvent;
